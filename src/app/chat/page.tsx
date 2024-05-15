@@ -1,5 +1,7 @@
+import TextBox from "../components/Textbox";
+
 export default function Chat() {
   return (
-    <div>CHAT</div>
+    <TextBox />
   )
 }
