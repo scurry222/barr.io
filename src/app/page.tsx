@@ -1,14 +1,14 @@
-import Link from "next/link";
+import NavigateToPage from "./components/NavigateToPage";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <header className="flex flex-col items-center">
-        <h1>HII WELCOME</h1>
-        <img src="hii.webp"alt="HII" />
+    <main className="flex min-h-screen flex-col justify-between p-24">
+      <header className="flex justify-between">
+        <h1>WELCOME</h1>
+        <NavigateToPage pageName="login" title="Log In" />
       </header>
       <nav>
-        <Link href='/chat'>TO THE CHAT</Link>
+        <NavigateToPage pageName="messages" title="Messages" />
       </nav>
     </main>
   );
