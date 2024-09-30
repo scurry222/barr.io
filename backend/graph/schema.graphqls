@@ -1,0 +1,30 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type Message {
+  id: ID!
+  text: String!
+  to: User!
+  from: User!
+  timestamp: String!
+}
+
+type User {
+  id: ID!
+  name: String!
+}
+
+type Query {
+  messages: [Message!]!
+}
+
+input NewMessage {
+  text: String!
+  userToId: String!
+  userFromId: String!
+}
+
+type Mutation {
+  createMessage(input: NewMessage!): Message!
+}
