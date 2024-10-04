@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func main() {
+func practice() {
 	readJSONToken("./movies.json", func(data map[string]any) bool {
 		return data["year"].(string) == "2011"
 	})
