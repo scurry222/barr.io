@@ -1,40 +1,22 @@
+// main.go
 package main
 
 import (
-	"encoding/json"
 	"log"
-	"os"
+
+	"barr.io/api/routes"
+	"barr.io/db"
 )
 
-func practice() {
-	readJSONToken("./movies.json", func(data map[string]any) bool {
-		return data["year"].(string) == "2011"
-	})
+func main() {
+	// Initialize the database
+	db.ConnectDatabase()
 
-}
+	// Set up the router
+	router := routes.SetupRouter()
 
-func readJSONToken(fileName string, filter func(map[string]any) bool) []map[string]any {
-	fileContent, err := os.Open(fileName)
-	if err != nil {
-		log.Fatal(err)
+	// Start the server on port 8080
+	if err := router.Run(":8080"); err != nil {
+		log.Fatal("Failed to run server:", err)
 	}
-	defer fileContent.Close()
-
-	decoder := json.NewDecoder(fileContent)
-
-	filteredData := []map[string]any{}
-
-	decoder.Token()
-
-	data := map[string]any{}
-
-	for decoder.More() {
-		decoder.Decode(&data)
-		if filter(data) {
-			log.Println(data)
-			filteredData = append(filteredData, data)
-		}
-	}
-
-	return filteredData
 }
