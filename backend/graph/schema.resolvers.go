@@ -8,16 +8,16 @@ import (
 	"context"
 	"fmt"
 
-	"barr.io/graph/model"
+	"barr.io/graph/models"
 )
 
 // CreateMessage is the resolver for the createMessage field.
-func (r *mutationResolver) CreateMessage(ctx context.Context, input model.NewMessage) (*model.Message, error) {
+func (r *mutationResolver) CreateMessage(ctx context.Context, input models.NewMessage) (*models.Message, error) {
 	panic(fmt.Errorf("not implemented: CreateMessage - createMessage"))
 }
 
 // Messages is the resolver for the messages field.
-func (r *queryResolver) Messages(ctx context.Context) ([]*model.Message, error) {
+func (r *queryResolver) Messages(ctx context.Context) ([]*models.Message, error) {
 	panic(fmt.Errorf("not implemented: Messages - messages"))
 }
 
