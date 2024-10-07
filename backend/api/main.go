@@ -6,6 +6,12 @@ import (
 
 	"barr.io/api/routes"
 	"barr.io/db"
+	"barr.io/graph"
+
+	"net/http"
+
+	"github.com/99designs/gqlgen/graphql/handler"
+	"github.com/99designs/gqlgen/graphql/playground"
 )
 
 func main() {
@@ -13,10 +19,12 @@ func main() {
 	db.ConnectDatabase()
 
 	// Set up the router
-	router := routes.SetupRouter()
+	routes.SetupRouter()
 
-	// Start the server on port 8080
-	if err := router.Run(":8080"); err != nil {
-		log.Fatal("Failed to run server:", err)
-	}
+	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
+
+	http.Handle("/graphql", srv)
+	http.Handle("/playground", playground.Handler("GraphQL playground", "/graphql"))
+
+	log.Fatal(http.ListenAndServe(":4000", nil))
 }
