@@ -1,30 +1,36 @@
-# GraphQL schema example
-#
-# https://gqlgen.com/getting-started/
-
-type Message {
-  id: ID!
-  text: String!
-  to: User!
-  from: User!
-  timestamp: String!
-}
+scalar DateTime
 
 type User {
-  id: ID!
-  name: String!
+  user_id: ID!
+  username: String!
+  email: String!
+  created_at: DateTime!
+  sentMessages: [Message!]!
+  receivedMessages: [Message!]!
+}
+
+type Message {
+  message_id: ID!
+  sender: User!
+  receiver: User!
+  message_body: String!
+  sent_at: DateTime!
 }
 
 type Query {
-  messages: [Message!]!
-}
+  getUser(user_id: ID!): User
+  listUsers: [User!]!
 
-input NewMessage {
-  text: String!
-  userToId: String!
-  userFromId: String!
+  getMessage(message_id: ID!): Message
+  listMessages: [Message!]!
+  getMessagesBetweenUsers(sender_id: ID!, receiver_id: ID!): [Message!]!
 }
 
 type Mutation {
-  createMessage(input: NewMessage!): Message!
+  createUser(username: String!, email: String!, password: String!): User!
+  updateUser(user_id: ID!, username: String, email: String, password: String): User!
+  deleteUser(user_id: ID!): Boolean!
+  
+  sendMessage(sender_id: ID!, receiver_id: ID!, message_body: String!): Message!
+  deleteMessage(message_id: ID!): Boolean!
 }
